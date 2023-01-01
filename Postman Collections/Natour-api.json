@@ -1,0 +1,783 @@
+{
+	"info": {
+		"_postman_id": "029c5d23-3348-47d7-9e2f-ab81bcab0db8",
+		"name": "Natour",
+		"description": "# Introduction \nThis Natour API is used to perform  crate , read, update, delete operation of the tours , reviews and users. In this API the routes  protected and some routes are restricted to certain users or admin. It also contains password reset option which  will send email to recovery email-id",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "geo",
+			"item": [
+				{
+					"name": "near me",
+					"_postman_id": "61b26869-1955-4872-97c8-0b6f965993bb",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{url}}api/v1/tours/tours-within/400/center/34.111745,-118.113491/unit/mi"
+					},
+					"response": []
+				},
+				{
+					"name": "get distance from a particular point ",
+					"_postman_id": "e7bab400-6ecf-4f35-b745-b16931ad46c9",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{url}}api/v1/tours/distances/34.111745,-118.113491/unit/mi"
+					},
+					"response": []
+				}
+			],
+			"_postman_id": "76ae48e2-1242-4ac0-b719-92bdd5223b2a"
+		},
+		{
+			"name": "review",
+			"item": [
+				{
+					"name": "create review",
+					"_postman_id": "9425af1a-7147-47b4-a0d2-f02108946a32",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"review\":\"Best place to visit during winter \",\r\n    \"rating\":3,\r\n    \"tour\":\"5c88fa8cf4afda39709c2955\",\r\n    \"user\":\"62e7d566ae4c494c887f0dfc\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{url}}api/v1/review/"
+					},
+					"response": []
+				},
+				{
+					"name": "get a particular review",
+					"_postman_id": "6c71210a-a8e3-4dec-ae02-0389edbac9b0",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{url}}api/v1/review/62eb6acc4b8fca581c460989"
+					},
+					"response": []
+				},
+				{
+					"name": "get all review",
+					"_postman_id": "18831a41-f572-47a6-ad0b-d2fc72058418",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{jwt}}"
+							}
+						},
+						"method": "GET",
+						"header": [],
+						"url": "{{url}}api/v1/review/"
+					},
+					"response": []
+				},
+				{
+					"name": "update review",
+					"_postman_id": "46791e34-e38b-4764-b732-af50973be38d",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{jwt}}"
+							}
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"rating\":3\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{url}}api/v1/review/62ecc5a21cb198759cacd29a"
+					},
+					"response": []
+				}
+			],
+			"_postman_id": "44318ca5-b3d9-4e0c-b655-90445f489ae4"
+		},
+		{
+			"name": "tour/review",
+			"item": [
+				{
+					"name": "create review using nested route",
+					"_postman_id": "e9cca9db-40f0-403b-8dcd-4b1ec551670c",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{jwt}}"
+							}
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"review\":\"hello jj jj\",\r\n    \"rating\":5\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{url}}api/v1/tours/5c88fa8cf4afda39709c2967/review/"
+					},
+					"response": []
+				},
+				{
+					"name": "get reviews of specific tour",
+					"_postman_id": "84270ed0-bcdb-4ee9-9f05-cd0d0df30e0f",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{jwt}}"
+							}
+						},
+						"method": "GET",
+						"header": [],
+						"url": "{{url}}api/v1/tours/5c88fa8cf4afda39709c2955/review/"
+					},
+					"response": []
+				},
+				{
+					"name": "delete review",
+					"_postman_id": "2939365f-643d-44fd-b01e-0cafa0209c14",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": "{{url}}api/v1/review/62ea9ff7721da478d0b6e49b"
+					},
+					"response": []
+				}
+			],
+			"_postman_id": "927b978a-60f5-41be-8f5e-79c7296bee15"
+		},
+		{
+			"name": "tours",
+			"item": [
+				{
+					"name": "getalltours",
+					"_postman_id": "cd9d2537-1ef1-4792-be3a-37acd04e6a39",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{jwt}}"
+							}
+						},
+						"method": "GET",
+						"header": [],
+						"url": "{{url}}api/v1/tours/"
+					},
+					"response": []
+				},
+				{
+					"name": "create tour",
+					"_postman_id": "776011f9-b1cc-4f8c-8b27-8497c2785122",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{jwt}}"
+							}
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"startLocation\": {\r\n      \"description\": \"Miami, USA\",\r\n      \"type\": \"Point\",\r\n      \"coordinates\": [-80.185942, 25.774772],\r\n      \"address\": \"301 Biscayne Blvd, Miami, FL 33132, USA\"\r\n    },\r\n    \"ratingsAverage\": 4.8,\r\n    \"ratingsQuantity\": 6,\r\n    \"images\": [\"tour-2-1.jpg\", \"tour-2-2.jpg\", \"tour-2-3.jpg\"],\r\n    \"startDates\": [\r\n      \"2021-06-19T09:00:00.000Z\",\r\n      \"2021-07-20T09:00:00.000Z\",\r\n      \"2021-08-18T09:00:00.000Z\"\r\n    ],\r\n    \"_id\": \"5c88fa8cf4afda39709c2967\",\r\n    \"name\": \"The name of the tour 2\",\r\n    \"duration\": 7,\r\n    \"maxGroupSize\": 15,\r\n    \"difficulty\": \"medium\",\r\n    \"guides\": [\"5c8a22c62f8fb814b56fa18b\", \"5c8a1f4e2f8fb814b56fa185\"],\r\n    \"price\": 497,\r\n    \"summary\": \"Exploring the jaw-dropping US east coast by foot and by boat\",\r\n    \"imageCover\": \"tour-2-cover.jpg\"\r\n    \r\n  }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{url}}api/v1/tours/"
+					},
+					"response": []
+				},
+				{
+					"name": "get tour",
+					"_postman_id": "52160bc9-a8b0-429f-a65a-d978a3ae7b35",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{url}}api/v1/tours/5c88fa8cf4afda39709c2967"
+					},
+					"response": []
+				},
+				{
+					"name": "update tour",
+					"_postman_id": "a0cb0140-66da-47da-b441-922d9678c5d8",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\":\"Taj mahal hshsh\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{url}}api/v1/tours/62e274a527eccc60347a226e"
+					},
+					"response": []
+				},
+				{
+					"name": "top-5-cheap",
+					"_postman_id": "4e42ce15-39f0-46ac-a628-07c2516ebd06",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{url}}api/v1/tours/top-5-cheap"
+					},
+					"response": []
+				},
+				{
+					"name": "pagination",
+					"_postman_id": "df2b5cd4-1d97-472c-af99-5136254ceb62",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}api/v1/tours?page=3&limit=4",
+							"host": [
+								"{{url}}api"
+							],
+							"path": [
+								"v1",
+								"tours"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "3"
+								},
+								{
+									"key": "limit",
+									"value": "4"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "filter",
+					"_postman_id": "9a258883-7202-4bb0-83e8-1fbe4808e94f",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{jwt}}"
+							}
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}api/v1/tours?price[gte]=2500",
+							"host": [
+								"{{url}}api"
+							],
+							"path": [
+								"v1",
+								"tours"
+							],
+							"query": [
+								{
+									"key": "price[gte]",
+									"value": "2500"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete tour",
+					"_postman_id": "bbbceb75-f619-487d-91fa-afd0330b3b79",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{jwt}}"
+							}
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": "{{url}}api/v1/tours/5c88fa8cf4afda39709c2967"
+					},
+					"response": []
+				},
+				{
+					"name": "tour-stats",
+					"_postman_id": "b5ea540a-867d-4e06-b963-b62b618e2259",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{url}}api/v1/tours/tour-stats"
+					},
+					"response": []
+				},
+				{
+					"name": "Monthly plan - using aggregation ",
+					"_postman_id": "4fa1431e-7837-4147-9e5e-90e6a3a38a87",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{url}}api/v1/tours/monthly-plan/2021"
+					},
+					"response": []
+				}
+			],
+			"_postman_id": "75a06561-150a-40be-8399-0983e3cf047a"
+		},
+		{
+			"name": "user",
+			"item": [
+				{
+					"name": "signup",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "5ca1b3fe-fdc8-4fc5-879e-e7109d406270",
+								"exec": [
+									"pm.environment.set(\"jwt\", pm.response.json().token);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"_postman_id": "a4688973-a85f-4347-b421-398e7e8869e9",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\":\"test user 2\",\r\n    \"email\":\"testmail2@gmail.com\",\r\n    \"password\":\"test@1234\",\r\n    \"passwordConfirm\":\"test@1234\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{url}}api/v1/users/signup"
+					},
+					"response": []
+				},
+				{
+					"name": "login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "b37e1a30-64f8-47ac-bcbf-37a55fded4af",
+								"exec": [
+									"pm.environment.set(\"jwt\", pm.response.json().token);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"_postman_id": "19013784-4ca2-4470-b598-77ee9f28b460",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\":\"ayls@example.com\",\r\n    \"password\":\"test1234\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{url}}api/v1/users/login"
+					},
+					"response": []
+				},
+				{
+					"name": "delete user",
+					"_postman_id": "c398c4c8-3255-48d3-9ea8-13deded587ed",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": "{{url}}api/v1/users/62ea2304850d680f909f7580"
+					},
+					"response": []
+				},
+				{
+					"name": "get all users",
+					"_postman_id": "d61b6a05-d4c3-4b5f-8f99-52c051b2158c",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{jwt}}"
+							}
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyZTdkNTY2YWU0YzQ5NGM4ODdmMGRmYyIsImlhdCI6MTY1OTM2MzI5MiwiZXhwIjoxNjY3MTM5MjkyfQ.fzTbpUlTI9rzKqMlUSx6ckIgFVmC1fhsutipCqu5i1k",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": "{{url}}api/v1/users/"
+					},
+					"response": []
+				},
+				{
+					"name": "forgetpassword",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "68bb58aa-8e5f-4de3-9bce-ce044571113d",
+								"exec": [
+									"pm.environment.set(\"jwt\", pm.response.json().token);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"_postman_id": "6d1f2d57-bacf-4b6c-90aa-62d5d5c9835c",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{jwt}}"
+							}
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\":\"ayls@example.com\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{url}}api/v1/users/forgetpassword"
+					},
+					"response": []
+				},
+				{
+					"name": "reset password",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "ab2b0e7e-ff81-485d-b398-deaee6282fcd",
+								"exec": [
+									"pm.environment.set(\"jwt\", pm.response.json().token);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"_postman_id": "766a2882-00d9-4e69-88d5-a7645d70a16b",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{jwt}}"
+							}
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"password\":\"test1234\",\r\n    \"passwordConfirm\":\"test1234\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{url}}api/v1/users/resetpassword/bbce69956d6915baa9338b074e6d448a279fe94e8d3831ca37d4114dcb2d809f"
+					},
+					"response": []
+				},
+				{
+					"name": "update My Password",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "aba0eb17-3d50-4492-b728-8091cbea2e16",
+								"exec": [
+									"pm.environment.set(\"jwt\", pm.response.json().token);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"_postman_id": "1f48d090-10fa-441c-a139-2b2a2ec467da",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{jwt}}"
+							}
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"passwordCurrent\":\"test1234\",\r\n    \"password\":\"test12345\",\r\n    \"passwordConfirm\":\"test12345\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{url}}api/v1/users/updateMyPassword"
+					},
+					"response": []
+				},
+				{
+					"name": "updateMe",
+					"_postman_id": "fbc70555-d383-4117-9080-a8ba0778d1ae",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{jwt}}"
+							}
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "akaash",
+									"type": "text"
+								},
+								{
+									"key": "photo",
+									"type": "file",
+									"src": "/C:/Users/Akaash/Pictures/ak.jpg"
+								}
+							],
+							"options": {
+								"formdata": {}
+							}
+						},
+						"url": "{{url}}api/v1/users/updateMe"
+					},
+					"response": []
+				},
+				{
+					"name": "deleteMe",
+					"_postman_id": "0b6d5cc3-d885-49c4-ad65-56aa86c42aff",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{jwt}}"
+							}
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": "{{url}}api/v1/users/deleteMe"
+					},
+					"response": []
+				},
+				{
+					"name": "update user",
+					"_postman_id": "b0942fd0-234e-41a6-9209-9415d7ce8bd3",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\":\"test99\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{url}}api/v1/users/62ea208c5d836c57f899a303"
+					},
+					"response": []
+				},
+				{
+					"name": "getMe",
+					"_postman_id": "a5f7c3f8-4445-464c-a6d8-f20bab956a3d",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{jwt}}"
+							}
+						},
+						"method": "GET",
+						"header": [],
+						"url": "{{url}}api/v1/users/getMe"
+					},
+					"response": []
+				}
+			],
+			"_postman_id": "32aa798c-34fa-41d5-98e2-1d21fa25df78"
+		},
+		{
+			"name": "Booking",
+			"item": [
+				{
+					"name": "checkout",
+					"_postman_id": "4d574c44-18a3-40ee-a7c9-b74c2a8c916f",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": null
+					},
+					"response": []
+				},
+				{
+					"name": "get all bookings",
+					"_postman_id": "eecbfa10-803a-47dd-9c04-62b245c6f12b",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": null
+					},
+					"response": []
+				},
+				{
+					"name": "New Request",
+					"_postman_id": "093757bc-be1b-414e-871d-142a8b21d59c",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": null
+					},
+					"response": []
+				}
+			],
+			"_postman_id": "5db8e190-b6ec-4dce-9481-69c19c69d80e"
+		}
+	]
+}
